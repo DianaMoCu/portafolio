@@ -31,12 +31,12 @@ export class InfoPaginaService {
         });
   }
 
-  private cargarEquipo(){
+  private cargarEquipo() {
      /*Carga de JSON desde Firebase*/
     this.http.get('https://angular-html-c9039.firebaseio.com/equipo.json')
     .subscribe( (resp: any[]) => {
        this.equipo = resp;
-       console.log(resp);
+       /*console.log(resp);*/
   });
 
   }
