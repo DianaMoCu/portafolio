@@ -22,6 +22,10 @@ export class ProductosService {
           this.productos = resp;
           /*Cuando ya se obtinen los productos se  inicializa en falso*/
           this.cargando = false;
+          /*Tiempo para mostrar el cargando
+          setTimeout(() => {
+            this.cargando = false;
+          }, 2000);*/
         });
   }
 }
