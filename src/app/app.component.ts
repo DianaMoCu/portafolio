@@ -8,8 +8,7 @@ import { InfoPaginaService } from './services/info-pagina.service';
 })
 export class AppComponent {
 
-  /*Inyeccion de nuestro servicio json*/
-  constructor(public _infoPagina: InfoPaginaService) {
-      
-  }
+  /*Inyeccion de nuestro servicio*/
+// tslint:disable-next-line: variable-name
+  constructor(public _infoPagina: InfoPaginaService) {}
 }

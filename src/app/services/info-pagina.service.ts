@@ -9,7 +9,7 @@ export class InfoPaginaService {
   info: InfoPagina = {};
   cargada = false;
 
-  constructor( private http: HttpClient) { 
+  constructor( private http: HttpClient) {
     /*console.log('Servicio de infoPagina listo');*/
     /*Leer el archivo JSON*/
     this.http.get('assets/data/data-pagina.json')
