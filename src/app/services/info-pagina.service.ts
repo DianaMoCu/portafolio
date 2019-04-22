@@ -9,8 +9,15 @@ export class InfoPaginaService {
   info: InfoPagina = {};
   cargada = false;
 
+  equipo: any[] = [];
+
   constructor( private http: HttpClient) {
     /*console.log('Servicio de infoPagina listo');*/
+     this.cargarInfo();
+     this.cargarEquipo();
+  }
+
+  private cargarInfo() {
     /*Leer el archivo JSON*/
     this.http.get('assets/data/data-pagina.json')
         /*1.Enmarcar la respuesta y decir que es de tipo any
@@ -19,8 +26,18 @@ export class InfoPaginaService {
         .subscribe( (resp: InfoPagina) => {
            this.cargada = true;
            this.info = resp;
-           console.log(resp);
+           /*console.log(resp);*/
            /*2. console.log( resp[ 'email' ] );*/
         });
+  }
+
+  private cargarEquipo(){
+     /*Carga de JSON desde Firebase*/
+    this.http.get('https://angular-html-c9039.firebaseio.com/equipo.json')
+    .subscribe( (resp: any[]) => {
+       this.equipo = resp;
+       console.log(resp);
+  });
+
   }
 }
