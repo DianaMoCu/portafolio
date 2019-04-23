@@ -17,17 +17,22 @@ export class ProductosService {
 
 
   private cargarProductos() {
-    this.http.get('https://angular-html-c9039.firebaseio.com/productos_idx.json')
-        .subscribe(( resp: Producto[]) => {
-          /*console.log(resp);*/
-          this.productos = resp;
-          /*Cuando ya se obtinen los productos se  inicializa en falso*/
+    // Promesa
+    return new Promise( ( resolve, reject ) => {
+      this.http.get('https://angular-html-c9039.firebaseio.com/productos_idx.json')
+      .subscribe(( resp: Producto[]) => {
+        /*console.log(resp);*/
+        this.productos = resp;
+        /*Cuando ya se obtinen los productos se  inicializa en falso*/
+        this.cargando = false;
+        /*Tiempo para mostrar el cargando
+        setTimeout(() => {
           this.cargando = false;
-          /*Tiempo para mostrar el cargando
-          setTimeout(() => {
-            this.cargando = false;
-          }, 2000);*/
-        });
+        }, 2000);*/
+        resolve();
+      });
+    });
+
   }
   getProducto( id: string) {
                    /*`Permite utilizar template literales ; hacer inserciones de pedazos de strings`*/
@@ -35,10 +40,30 @@ export class ProductosService {
   }
 
   buscarProducto( termino: string) {
-    this.productosFiltrado = this.productos.filter( producto => {
-      return true;
-    });
+// tslint:disable-next-line: whitespace
+    if( this.productos.length === 0) {
+      // cargar productos
+      this.cargarProductos().then(() => {
+        // ejecutar despues de tener los productos
+        // aplicar filtro
+        this.filtrarProductos( termino );
+      });
+    } else {
+      // aplicar filtro
+      this.filtrarProductos( termino );
+    }
+  }
 
-    console.log( this.productosFiltrado );
+  private filtrarProductos( termino: string ) {
+    console.log( this.productos );
+    this.productosFiltrado = [];
+    // Pasar a minuscula
+    termino = termino.toLocaleLowerCase();
+    this.productos.forEach( prod => {
+      const tituloLower = prod.titulo.toLocaleLowerCase();
+      if ( prod.categoria.indexOf( termino ) >= 0 || tituloLower.indexOf( termino ) >= 0 ) {
+        this.productosFiltrado.push( prod );
+      }
+    });
   }
 }
