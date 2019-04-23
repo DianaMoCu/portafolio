@@ -27,7 +27,7 @@ export class ItemComponent implements OnInit {
 // tslint:disable-next-line: no-string-literal
             this.id = parametros['id'];
             this.producto = producto;
-            console.log(producto);
+            // console.log(producto);
           });
 
     });
