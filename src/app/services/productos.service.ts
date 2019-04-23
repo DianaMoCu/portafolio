@@ -18,7 +18,7 @@ export class ProductosService {
   private cargarProductos() {
     this.http.get('https://angular-html-c9039.firebaseio.com/productos_idx.json')
         .subscribe(( resp: Producto[]) => {
-          console.log(resp);
+          /*console.log(resp);*/
           this.productos = resp;
           /*Cuando ya se obtinen los productos se  inicializa en falso*/
           this.cargando = false;
@@ -27,5 +27,9 @@ export class ProductosService {
             this.cargando = false;
           }, 2000);*/
         });
+  }
+  getProducto( id: string) {
+                   /*`Permite utilizar template literales ; hacer inserciones de pedazos de strings`*/
+  return this.http.get(`https://angular-html-c9039.firebaseio.com/productos/${id}.json`);
   }
 }
